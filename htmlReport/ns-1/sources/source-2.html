@@ -1,0 +1,253 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > PlagiarismCheckerTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">&lt;empty package name&gt;</a>
+</div>
+
+<h1>Coverage Summary for Class: PlagiarismCheckerTest (&lt;empty package name&gt;)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PlagiarismCheckerTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (2/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.6%
+  </span>
+  <span class="absValue">
+    (57/59)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;import java.io.*;
+&nbsp;import java.nio.charset.StandardCharsets;
+&nbsp;
+&nbsp;/**
+&nbsp; * PlagiarismChecker的单元测试类
+&nbsp; */
+<b class="fc">&nbsp;public class PlagiarismCheckerTest {</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="fc">&nbsp;        testPreprocessText();</b>
+<b class="fc">&nbsp;        testCompareTexts();</b>
+<b class="fc">&nbsp;        testFileOperations();</b>
+<b class="fc">&nbsp;        System.out.println(&quot;所有测试完成&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * 测试文本预处理功能
+&nbsp;     */
+&nbsp;    private static void testPreprocessText() {
+<b class="fc">&nbsp;        System.out.println(&quot;开始测试文本预处理功能...&quot;);</b>
+&nbsp;
+&nbsp;        // 测试用例1：包含标点符号和空格的文本
+<b class="fc">&nbsp;        String text1 = &quot;今天是星期天，天气晴，今天晚上我要去看电影。&quot;;</b>
+<b class="fc">&nbsp;        String expected1 = &quot;今天是星期天天气晴今天晚上我要去看电影&quot;;</b>
+<b class="fc">&nbsp;        String result1 = preprocessTextForTest(text1);</b>
+<b class="pc">&nbsp;        assert result1.equals(expected1) : &quot;测试用例1失败: 期望 &#39;&quot; + expected1 + &quot;&#39;, 实际 &#39;&quot; + result1 + &quot;&#39;&quot;;</b>
+<b class="fc">&nbsp;        System.out.println(&quot;测试用例1通过&quot;);</b>
+&nbsp;
+&nbsp;        // 测试用例2：包含英文和数字的文本
+<b class="fc">&nbsp;        String text2 = &quot;Hello, World! 123&quot;;</b>
+<b class="fc">&nbsp;        String expected2 = &quot;helloworld123&quot;;</b>
+<b class="fc">&nbsp;        String result2 = preprocessTextForTest(text2);</b>
+<b class="pc">&nbsp;        assert result2.equals(expected2) : &quot;测试用例2失败: 期望 &#39;&quot; + expected2 + &quot;&#39;, 实际 &#39;&quot; + result2 + &quot;&#39;&quot;;</b>
+<b class="fc">&nbsp;        System.out.println(&quot;测试用例2通过&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        System.out.println(&quot;文本预处理功能测试通过\n&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * 测试文本比较功能
+&nbsp;     */
+&nbsp;    private static void testCompareTexts() {
+<b class="fc">&nbsp;        System.out.println(&quot;开始测试文本比较功能...&quot;);</b>
+&nbsp;
+&nbsp;        // 测试用例1：完全相同的文本
+<b class="fc">&nbsp;        String text1 = &quot;今天是星期天天气晴&quot;;</b>
+<b class="fc">&nbsp;        String text2 = &quot;今天是星期天天气晴&quot;;</b>
+<b class="fc">&nbsp;        double similarity1 = PlagiarismChecker.compareTexts(text1, text2);</b>
+<b class="pc">&nbsp;        assert Math.abs(similarity1 - 1.0) &lt; 0.01 : &quot;测试用例1失败: 期望 1.0, 实际 &quot; + similarity1;</b>
+<b class="fc">&nbsp;        System.out.println(&quot;测试用例1通过：完全相同文本相似度为 &quot; + String.format(&quot;%.2f&quot;, similarity1));</b>
+&nbsp;
+&nbsp;        // 测试用例2：完全不同的文本
+<b class="fc">&nbsp;        String text3 = &quot;今天是星期天&quot;;</b>
+<b class="fc">&nbsp;        String text4 = &quot;明天是星期一&quot;;</b>
+<b class="fc">&nbsp;        double similarity2 = PlagiarismChecker.compareTexts(text3, text4);</b>
+<b class="pc">&nbsp;        assert similarity2 &gt;= 0 : &quot;测试用例2失败: 相似度应该大于等于0, 实际 &quot; + similarity2;</b>
+<b class="fc">&nbsp;        System.out.println(&quot;测试用例2通过：不同文本相似度为 &quot; + String.format(&quot;%.2f&quot;, similarity2));</b>
+&nbsp;
+&nbsp;        // 测试用例3：部分相同的文本
+<b class="fc">&nbsp;        String text5 = &quot;今天是星期天天气晴&quot;;</b>
+<b class="fc">&nbsp;        String text6 = &quot;今天是周天天气晴朗&quot;;</b>
+<b class="fc">&nbsp;        double similarity3 = PlagiarismChecker.compareTexts(text5, text6);</b>
+<b class="pc">&nbsp;        assert similarity3 &gt; 0 &amp;&amp; similarity3 &lt; 1 : &quot;测试用例3失败: 相似度应该在0-1之间, 实际 &quot; + similarity3;</b>
+<b class="fc">&nbsp;        System.out.println(&quot;测试用例3通过：部分相同文本相似度为 &quot; + String.format(&quot;%.2f&quot;, similarity3));</b>
+&nbsp;
+<b class="fc">&nbsp;        System.out.println(&quot;文本比较功能测试通过\n&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * 测试文件操作功能
+&nbsp;     */
+&nbsp;    private static void testFileOperations() {
+<b class="fc">&nbsp;        System.out.println(&quot;开始测试文件操作功能...&quot;);</b>
+&nbsp;
+&nbsp;        try {
+&nbsp;            // 创建测试文件
+<b class="fc">&nbsp;            String originalFile = &quot;original_test.txt&quot;;</b>
+<b class="fc">&nbsp;            String plagiarizedFile = &quot;plagiarized_test.txt&quot;;</b>
+<b class="fc">&nbsp;            String answerFile = &quot;answer_test.txt&quot;;</b>
+&nbsp;
+&nbsp;            // 写入测试内容
+<b class="fc">&nbsp;            writeTestFile(originalFile, &quot;今天是星期天，天气晴，今天晚上我要去看电影。&quot;);</b>
+<b class="fc">&nbsp;            writeTestFile(plagiarizedFile, &quot;今天是周天，天气晴朗，我晚上要去看电影。&quot;);</b>
+&nbsp;
+&nbsp;            // 测试查重功能
+<b class="fc">&nbsp;            double similarity = PlagiarismChecker.checkPlagiarism(originalFile, plagiarizedFile);</b>
+<b class="pc">&nbsp;            assert similarity &gt;= 0 &amp;&amp; similarity &lt;= 1 : &quot;文件操作测试失败: 相似度应该在0-1之间, 实际 &quot; + similarity;</b>
+&nbsp;
+&nbsp;            // 测试结果写入功能
+<b class="fc">&nbsp;            PlagiarismChecker.writeResult(similarity, answerFile);</b>
+&nbsp;
+&nbsp;            // 验证结果文件内容
+<b class="fc">&nbsp;            String result = readTestFile(answerFile);</b>
+<b class="pc">&nbsp;            assert result.matches(&quot;\\d+\\.\\d{2}&quot;) : &quot;结果文件格式错误: &quot; + result;</b>
+&nbsp;
+&nbsp;            // 清理测试文件
+<b class="fc">&nbsp;            new File(originalFile).delete();</b>
+<b class="fc">&nbsp;            new File(plagiarizedFile).delete();</b>
+<b class="fc">&nbsp;            new File(answerFile).delete();</b>
+&nbsp;
+<b class="fc">&nbsp;            System.out.println(&quot;文件操作功能测试通过，结果文件内容: &quot; + result + &quot;\n&quot;);</b>
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            assert false : &quot;文件操作测试异常: &quot; + e.getMessage();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * 用于测试的文本预处理方法
+&nbsp;     */
+&nbsp;    private static String preprocessTextForTest(String text) {
+<b class="fc">&nbsp;        return text.replaceAll(&quot;[^\\u4e00-\\u9fa5a-zA-Z0-9]&quot;, &quot;&quot;).toLowerCase();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * 写入测试文件
+&nbsp;     */
+&nbsp;    private static void writeTestFile(String fileName, String content) throws IOException {
+<b class="fc">&nbsp;        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), StandardCharsets.UTF_8))) {</b>
+<b class="fc">&nbsp;            writer.write(content);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * 读取测试文件
+&nbsp;     */
+&nbsp;    private static String readTestFile(String fileName) throws IOException {
+<b class="fc">&nbsp;        StringBuilder content = new StringBuilder();</b>
+<b class="fc">&nbsp;        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8))) {</b>
+&nbsp;            String line;
+<b class="fc">&nbsp;            while ((line = reader.readLine()) != null) {</b>
+<b class="fc">&nbsp;                content.append(line);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return content.toString();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-09-20 16:29</div>
+</div>
+</body>
+</html>

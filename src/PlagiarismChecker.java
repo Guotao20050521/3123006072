@@ -12,7 +12,7 @@ public class PlagiarismChecker
      * 主函数，处理命令行参数并执行查重
      * @param args 命令行参数：原文文件路径、抄袭版文件路径、答案文件路径
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
         /*检查参数数量*/
         if (args.length != 3) {
             System.err.println("参数数量错误，请提供原文文件、抄袭版文件和答案文件的路径");
@@ -131,12 +131,12 @@ public class PlagiarismChecker
     }
 
     /**
-     * 将结果写入答案文件
+     * 将结果写入答案文件（写作public是为了测试）
      * @param similarity 相似度
      * @param answerFilePath 答案文件路径
      * @throws IOException 文件写入异常
      */
-    private static void writeResult(double similarity, String answerFilePath) throws IOException {
+    public static void writeResult(double similarity, String answerFilePath) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(answerFilePath), StandardCharsets.UTF_8))) {
             writer.write(String.format("%.2f", similarity));
         }
